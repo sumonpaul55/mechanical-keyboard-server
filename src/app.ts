@@ -6,11 +6,14 @@ import router from "./app/routes/routers";
 
 const app = express();
 
+app.use(express.json());
+
 app.use(cors());
 
-app.use("/api", router);
+app.use("/api/v1", router);
 
 app.use(globalErrorHandler);
+
 app.use(notFound);
 
 app.get("/", (req, res) => {
