@@ -13,11 +13,34 @@ const addProducts = catchAsync(async (req, res) => {
   });
 });
 
+const getAllProduct = catchAsync(async (req, res) => {
+  const queryField = req.query;
+  const result = await productService.getAllProductFromDb(queryField);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Products Retrive successfully",
+    data: result,
+  });
+});
+
+// const getProduct = catchAsync(async (req, res) => {
+//   const queryField = req.query;
+//   const result = await productService.getProducts(queryField);
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: "Product Retrive successfully",
+//     data: result,
+//   });
+// });
+
 // const updateProducts = catchAsync(async (req, res) => {
 //   console.log(req.body);
 // });
 
 export const productsController = {
   addProducts,
+  getAllProduct,
   // updateProducts,
 };

@@ -12,6 +12,15 @@ const addProductDb = async (payLoad: TProducts) => {
   return result;
 };
 
+const getAllProductFromDb = async (payLoad: { sort?: number; category?: string; limit?: string; search?: string }) => {
+  const { sort, category, limit, search } = payLoad;
+  console.log(payLoad);
+
+  const result = await Products.find({});
+  return result;
+};
+
 export const productService = {
   addProductDb,
+  getAllProductFromDb,
 };
