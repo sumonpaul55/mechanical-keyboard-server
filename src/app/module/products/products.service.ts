@@ -13,10 +13,26 @@ const addProductDb = async (payLoad: TProducts) => {
 };
 
 const getAllProductFromDb = async (payLoad: { sort?: number; category?: string; limit?: string; search?: string }) => {
-  const { sort, category, limit, search } = payLoad;
-  console.log(payLoad);
+  const { category, limit, search } = payLoad;
+  let query: { brand?: any; name?: any } = {};
 
-  const result = await Products.find({});
+  if (category) {
+    {
+      query.brand = { $regex: category, $options: "i" };
+    }
+  }
+
+  if (search) {
+    {
+      query.name = { $regex: search, $options: "i" };
+    }
+  }
+  let options: number = 10;
+  if (limit) {
+    options = Number(limit);
+  }
+  console.log(query);
+  const result = await Products.find(query).limit(options);
   return result;
 };
 
