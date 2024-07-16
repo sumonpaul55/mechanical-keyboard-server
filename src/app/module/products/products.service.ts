@@ -1,3 +1,5 @@
+import QueryBuilder from "../../builder/QueryBuilder";
+import { searchAbleField } from "../../builder/searchAblefield";
 import { TProducts } from "./products.interface";
 import { Products } from "./products.model";
 
@@ -12,27 +14,10 @@ const addProductDb = async (payLoad: TProducts) => {
   return result;
 };
 
-const getAllProductFromDb = async (payLoad: { sort?: number; category?: string; limit?: string; search?: string }) => {
-  const { category, limit, search } = payLoad;
-  let query: { brand?: any; name?: any } = {};
+const getAllProductFromDb = async (query: Record<string, unknown>) => {
+  const productQuery = new QueryBuilder(Products.find(), query).search(searchAbleField).fields().paginate().sort();
+  const result = await productQuery.modelQuery;
 
-  if (category) {
-    {
-      query.brand = { $regex: category, $options: "i" };
-    }
-  }
-
-  if (search) {
-    {
-      query.name = { $regex: search, $options: "i" };
-    }
-  }
-  let options: number = 10;
-  if (limit) {
-    options = Number(limit);
-  }
-  console.log(query);
-  const result = await Products.find(query).limit(options);
   return result;
 };
 

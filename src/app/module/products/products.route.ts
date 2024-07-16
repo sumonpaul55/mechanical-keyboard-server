@@ -6,6 +6,7 @@ import { productValidation } from "./products.validation";
 const router = Router();
 
 router.post("/", validateRequerst(productValidation.addProductValidationSchema), productsController.addProducts);
+
 router.get("/", productsController.getAllProduct);
 // router.get("/", productsController.getProduct);
 
