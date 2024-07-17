@@ -8,7 +8,8 @@ const router = Router();
 router.post("/", validateRequerst(productValidation.addProductValidationSchema), productsController.addProducts);
 
 router.get("/", productsController.getAllProduct);
-// router.get("/", productsController.getProduct);
+
+// router.get("/products-fields", productsController.getProductFields);
 
 // router.put("/id", productsController.updateProducts);
 

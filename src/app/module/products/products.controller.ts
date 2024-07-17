@@ -14,6 +14,7 @@ const addProducts = catchAsync(async (req, res) => {
 });
 
 const getAllProduct = catchAsync(async (req, res) => {
+  console.log(req.params);
   const result = await productService.getAllProductFromDb(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -23,9 +24,9 @@ const getAllProduct = catchAsync(async (req, res) => {
   });
 });
 
-// const getProduct = catchAsync(async (req, res) => {
-//   const queryField = req.query;
-//   const result = await productService.getProducts(queryField);
+// const getProductFields = catchAsync(async (req, res) => {
+//   console.log(req.query.fields);
+//   const result = await productService.getProductFieldsDb(req.query.fields);
 //   sendResponse(res, {
 //     statusCode: httpStatus.OK,
 //     success: true,
@@ -41,5 +42,6 @@ const getAllProduct = catchAsync(async (req, res) => {
 export const productsController = {
   addProducts,
   getAllProduct,
+  // getProductFields,
   // updateProducts,
 };

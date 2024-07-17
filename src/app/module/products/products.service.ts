@@ -21,7 +21,13 @@ const getAllProductFromDb = async (query: Record<string, unknown>) => {
   return result;
 };
 
+// const getProductFieldsDb = async (payload: any) => {
+//   console.log(payload);
+//   const result = await Products.find({}).select(`${payload}`);
+//   return result;
+// };
 export const productService = {
   addProductDb,
   getAllProductFromDb,
+  // getProductFieldsDb,
 };
