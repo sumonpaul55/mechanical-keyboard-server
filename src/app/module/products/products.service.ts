@@ -15,9 +15,13 @@ const addProductDb = async (payLoad: TProducts) => {
 };
 
 const getAllProductFromDb = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(Products.find(), query).search(searchAbleField).fields().paginate().sort();
+  const productQuery = new QueryBuilder(Products.find(), query).search(searchAbleField).filter().fields().paginate().sort();
   const result = await productQuery.modelQuery;
 
+  return result;
+};
+const getProductByid = async (payload: any) => {
+  const result = await Products.findById(payload);
   return result;
 };
 
@@ -29,5 +33,5 @@ const getAllProductFromDb = async (query: Record<string, unknown>) => {
 export const productService = {
   addProductDb,
   getAllProductFromDb,
-  // getProductFieldsDb,
+  getProductByid,
 };

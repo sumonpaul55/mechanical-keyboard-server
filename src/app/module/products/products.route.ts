@@ -9,7 +9,7 @@ router.post("/", validateRequerst(productValidation.addProductValidationSchema),
 
 router.get("/", productsController.getAllProduct);
 
-// router.get("/products-fields", productsController.getProductFields);
+router.get("/getOneProductById", productsController.getProductByid);
 
 // router.put("/id", productsController.updateProducts);
 
