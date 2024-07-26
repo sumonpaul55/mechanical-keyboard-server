@@ -21,15 +21,15 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj = { ...this.query };
-    // console.log("queryobj", queryObj);
 
-    const excludeField = ["search", "sort", "fields", "brand", "limit", "page"];
-    excludeField.forEach((el) => delete queryObj[el]);
+    const excludeFields = ["search", "sort", "fields", "limit", "page"];
+
+    excludeFields.forEach((el) => delete queryObj[el]);
 
     if (queryObj.brand) {
-      const brand = (queryObj.brnad as string).split(",");
+      let newBrand = (queryObj.brand as string).split(",");
       this.modelQuery = this.modelQuery.find({
-        brand: { $in: brand },
+        brand: { $in: newBrand },
       });
       return this;
     } else {
