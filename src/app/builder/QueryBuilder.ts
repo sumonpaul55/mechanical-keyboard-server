@@ -28,8 +28,9 @@ class QueryBuilder<T> {
 
     if (queryObj.brand) {
       let newBrand = (queryObj.brand as string).split(",");
+      let caseInsensitiveBrands = newBrand.map((brand) => new RegExp(`^${brand}$`, "i"));
       this.modelQuery = this.modelQuery.find({
-        brand: { $in: newBrand },
+        brand: { $in: caseInsensitiveBrands },
       });
       return this;
     } else {

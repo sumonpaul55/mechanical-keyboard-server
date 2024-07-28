@@ -6,6 +6,7 @@ import { cartController } from "./cart.controller";
 const router = Router();
 
 router.post("/", validateRequerst(cartValidation.addToCartValidation), cartController.addCart);
-router.get("/");
+router.get("/", cartController.getAllCarts);
+router.get("/", cartController.getTotalCartAmout);
 
 export const cartRouter = router;

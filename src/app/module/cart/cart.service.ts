@@ -15,7 +15,16 @@ const addCartDb = async (payLoad: CartType) => {
   const result = await Cart.create(payLoad);
   return result;
 };
-
+const getCarts = async () => {
+  const result = await Cart.find();
+  return result;
+};
+const getCartAmount = async () => {
+  const result = Cart.countDocuments();
+  return result;
+};
 export const cartService = {
   addCartDb,
+  getCarts,
+  getCartAmount,
 };
