@@ -14,7 +14,7 @@ const addCart = catchAsync(async (req, res) => {
   });
 });
 const getAllCarts = catchAsync(async (req, res) => {
-  const result = cartService.getCarts();
+  const result = await cartService.getCarts();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -23,7 +23,7 @@ const getAllCarts = catchAsync(async (req, res) => {
   });
 });
 const getTotalCartAmout = catchAsync(async (req, res) => {
-  const result = cartService.getCartAmount();
+  const result = await cartService.getCartAmount();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

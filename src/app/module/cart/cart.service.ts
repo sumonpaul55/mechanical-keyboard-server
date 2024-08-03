@@ -7,7 +7,7 @@ const addCartDb = async (payLoad: CartType) => {
     const result = await Cart.findOneAndUpdate(
       { productId: payLoad.productId },
       {
-        $inc: { quantity: payLoad.quantity, new: true },
+        $inc: { availableQuantity: payLoad.availableQuantity, new: true },
       }
     );
     return result;
@@ -16,11 +16,11 @@ const addCartDb = async (payLoad: CartType) => {
   return result;
 };
 const getCarts = async () => {
-  const result = await Cart.find();
+  const result = await Cart.find({}).populate("productId");
   return result;
 };
 const getCartAmount = async () => {
-  const result = Cart.countDocuments();
+  const result = await Cart.countDocuments();
   return result;
 };
 export const cartService = {

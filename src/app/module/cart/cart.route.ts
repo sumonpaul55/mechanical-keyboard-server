@@ -7,6 +7,6 @@ const router = Router();
 
 router.post("/", validateRequerst(cartValidation.addToCartValidation), cartController.addCart);
 router.get("/", cartController.getAllCarts);
-router.get("/", cartController.getTotalCartAmout);
+router.get("/total", cartController.getTotalCartAmout);
 
 export const cartRouter = router;
