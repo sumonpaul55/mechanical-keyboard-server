@@ -10,12 +10,11 @@ const orderSchema = new Schema<TOrder>(
     paymentMethod: { type: String, required: true, trim: true },
     products: [
       {
-        productId: { type: mongoose.Schema.Types.ObjectId },
-        ref: "Product",
-        required: true,
-        min: 1,
+        productId: { type: String, ref: "Products", required: true, min: 1 },
+        productQuantity: { type: Number, required: true },
       },
     ],
+    totalAmout: { type: Number, required: true },
   },
   { timestamps: true }
 );

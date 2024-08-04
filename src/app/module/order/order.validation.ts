@@ -10,9 +10,10 @@ const addOrderValidationSchema = z.object({
   products: z.array(
     z.object({
       productId: z.string({ required_error: "product id is required" }),
-      quantity: z.number().min(1, "Qunatity is required"),
+      productQuantity: z.number().min(1, "Qunatity is required"),
     })
   ),
+  totalAmout: z.number().min(1, "Total Amount is required"),
 });
 
 export const orderValidation = { addOrderValidationSchema };
