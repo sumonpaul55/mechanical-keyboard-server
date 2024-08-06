@@ -36,10 +36,21 @@ const getProductByid = catchAsync(async (req, res) => {
 // const updateProducts = catchAsync(async (req, res) => {
 //   console.log(req.body);
 // });
+const editProduct = catchAsync(async (req, res) => {
+  const { id, editAbleProduct } = req.body;
+  const result = await productService.editProductDb(id, editAbleProduct);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Product Updated Successfully",
+    data: result,
+  });
+});
 
 export const productsController = {
   addProducts,
   getAllProduct,
   getProductByid,
+  editProduct,
   // updateProducts,
 };

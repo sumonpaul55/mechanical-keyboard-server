@@ -14,3 +14,5 @@ import { z } from "zod";
 import { productValidation } from "./products.validation";
 
 export type TProducts = z.infer<typeof productValidation.addProductValidationSchema>;
+
+export type TEditProduct = z.infer<typeof productValidation.editProductValidationSchema>;

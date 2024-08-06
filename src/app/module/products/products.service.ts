@@ -25,6 +25,11 @@ const getProductByid = async (payload: any) => {
   return result;
 };
 
+const editProductDb = async (id: string, payload: TProducts) => {
+  const result = await Products.findByIdAndUpdate(id, payload, { new: true });
+  return result;
+};
+
 // const getProductFieldsDb = async (payload: any) => {
 //   console.log(payload);
 //   const result = await Products.find({}).select(`${payload}`);
@@ -34,4 +39,5 @@ export const productService = {
   addProductDb,
   getAllProductFromDb,
   getProductByid,
+  editProductDb,
 };
