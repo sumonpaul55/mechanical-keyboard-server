@@ -15,7 +15,7 @@ const addProductDb = async (payLoad: TProducts) => {
 };
 
 const getAllProductFromDb = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(Products.find(), query).search(searchAbleField).filter().fields().paginate().sort();
+  const productQuery = new QueryBuilder(Products.find({ delete: false }), query).search(searchAbleField).filter().fields().paginate().sort();
   const result = await productQuery.modelQuery;
 
   return result;
@@ -35,9 +35,14 @@ const editProductDb = async (id: string, payload: TProducts) => {
 //   const result = await Products.find({}).select(`${payload}`);
 //   return result;
 // };
+const deleteProductsFromDb = async (id: string) => {
+  const result = await Products.findByIdAndUpdate(id, { delete: true }, { new: true });
+  return result;
+};
 export const productService = {
   addProductDb,
   getAllProductFromDb,
   getProductByid,
   editProductDb,
+  deleteProductsFromDb,
 };

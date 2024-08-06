@@ -11,6 +11,7 @@ router.get("/", productsController.getAllProduct);
 
 router.get("/getOneProductById", productsController.getProductByid);
 router.put("/edit-product", validateRequerst(productValidation.editProductValidationSchema), productsController.editProduct);
+router.delete("/:id", productsController.deleteProduct);
 
 // router.put("/id", productsController.updateProducts);
 
