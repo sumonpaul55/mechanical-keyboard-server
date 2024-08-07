@@ -6,6 +6,7 @@ const addOrderValidationSchema = z.object({
   address: z.string({ required_error: "Address Is Required" }),
   phone: z.string({ required_error: "Phone Number is required" }),
   paymentMethod: z.string({ required_error: "Payment method Is Required" }),
+  discountAmount: z.number().optional(),
   products: z.array(
     z.object({
       productId: z.string({ required_error: "product id is required" }),

@@ -8,10 +8,12 @@ const orderSchema = new Schema<TOrder>(
     phone: { type: String, required: true },
     address: { type: String, required: true, trim: true },
     paymentMethod: { type: String, required: true, trim: true },
+    discountAmount: { type: String },
     products: [
       {
         productId: { type: String, ref: "Products", required: true, min: 1 },
         productQuantity: { type: Number, required: true },
+        _id: false,
       },
     ],
     totalAmout: { type: Number, required: true },

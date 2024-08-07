@@ -21,32 +21,43 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj = { ...this.query };
-
-    const excludeFields = ["search", "sort", "fields", "limit", "page"];
-
+    const excludeFields = ["search", "sort", "fields", "limit", "page", "range", "brand"];
     excludeFields.forEach((el) => delete queryObj[el]);
+    this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+    return this;
+  }
 
-    if (queryObj.brand) {
-      let newBrand = (queryObj.brand as string).split(",");
+  // range
+  range() {
+    const range = this.query.range;
+    if (range) {
+      const newRange = (range as string).split("-");
+      const lowestPrice = Number(newRange[0]);
+      const hiestprice = Number(newRange[1]);
+      // let rangevalue = newRange.map((range) => new RegExp(`^${range}$`, "i"));
+      this.modelQuery = this.modelQuery.find({
+        price: { $gte: lowestPrice, $lte: hiestprice },
+      });
+    }
+    return this;
+  }
+
+  brand() {
+    if (this.query.brand) {
+      let newBrand = (this.query.brand as string).split(",");
       let caseInsensitiveBrands = newBrand.map((brand) => new RegExp(`^${brand}$`, "i"));
       this.modelQuery = this.modelQuery.find({
         brand: { $in: caseInsensitiveBrands },
       });
-      return this;
-    } else {
-      this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
-      return this;
     }
+    return this;
   }
 
   //   pagination
   paginate() {
     const page = Number(this?.query?.page) || 1;
-
     const limit = Number(this?.query?.limit);
-
     const skip = (page - 1) * limit;
-
     this.modelQuery = this.modelQuery.skip(skip).limit(limit);
     return this;
   }
