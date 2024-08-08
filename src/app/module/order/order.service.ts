@@ -23,6 +23,7 @@ const addOrderDb = async (payload: TOrder) => {
 
       await existProduct.save({ session });
     });
+    // ensure all asynchrounus operation completed
     await Promise.all(updatePromises);
     const result = await Order.create(payload);
     await session.commitTransaction();

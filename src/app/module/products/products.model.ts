@@ -3,13 +3,13 @@ import { TProducts } from "./products.interface";
 
 const productSchema: Schema = new Schema<TProducts>(
   {
-    image: { type: String, required: true },
-    name: { type: String, required: true },
+    image: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true },
     brand: { type: String, required: true },
     availableQuantity: { type: Number, required: true },
-    price: { type: Number, required: true },
-    rating: { type: Number, required: true },
-    description: { type: String, required: true },
+    price: { type: Number, required: true, trim: true },
+    rating: { type: Number, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
     delete: { type: Boolean, default: false },
   },
   {
