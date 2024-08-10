@@ -12,12 +12,10 @@ app.use(cors());
 
 app.use("/api/v1", router);
 
-app.use(globalErrorHandler);
-
-app.use(notFound);
-
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
+app.use(globalErrorHandler);
+app.use(notFound);
 
 export default app;
