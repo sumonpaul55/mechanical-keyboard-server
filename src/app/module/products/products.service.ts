@@ -18,11 +18,12 @@ const getAllProductFromDb = async (query: Record<string, unknown>) => {
   const productQuery = new QueryBuilder(Products.find({ delete: false }), query)
     .search(searchAbleField)
     .filter()
+    .sort()
     .range()
     .brand()
     .fields()
-    .paginate()
-    .sort();
+    .paginate();
+
   const result = await productQuery.modelQuery;
   const totalDocument = await Products.countDocuments({ delete: false });
   return { result, totalDocument };

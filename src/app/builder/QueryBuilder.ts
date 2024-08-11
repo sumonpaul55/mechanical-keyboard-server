@@ -13,7 +13,7 @@ class QueryBuilder<T> {
     const searchTerm = this?.query?.search as string;
     if (searchTerm) {
       this.modelQuery = this.modelQuery.find({
-        $or: searchAbleField.map((field) => ({ [field]: { $regex: searchTerm, $options: "i" } } as FilterQuery<T>)),
+        $or: searchAbleField.map((field) => ({ [field]: { $regex: searchTerm, $options: "i" } }) as FilterQuery<T>),
       });
     }
     return this;
@@ -67,6 +67,7 @@ class QueryBuilder<T> {
     this.modelQuery = this.modelQuery.sort(sort as string);
     return this;
   }
+
   fields() {
     const fields = (this?.query?.fields as string)?.split(",")?.join(" ") || "-__v";
     this.modelQuery = this.modelQuery.select(fields);

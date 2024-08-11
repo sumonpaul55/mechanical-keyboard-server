@@ -1,4 +1,4 @@
-## express + TypeScript Keyboard Website Server
+## Backend keyhub: TypeScript, Node, Express, MongoDB, Mongoose, Zod.
 
 #Run this project locally
 
