@@ -20,13 +20,13 @@ const addOrderDb = async (payload: TOrder) => {
       }
       // reduce qunatity from main produt after confirem
       existProduct.availableQuantity -= product.productQuantity;
-
       await existProduct.save({ session });
     });
     // ensure all asynchrounus operation completed
     await Promise.all(updatePromises);
     const result = await Order.create(payload);
     await session.commitTransaction();
+    await session.endSession();
     return result;
   } catch (error) {
     await session.abortTransaction();
