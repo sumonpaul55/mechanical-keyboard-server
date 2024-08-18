@@ -1,13 +1,20 @@
+import httpStatus from "http-status";
 import QueryBuilder from "../../builder/QueryBuilder";
 import { searchAbleField } from "../../builder/searchAblefield";
+import AppError from "../../error/AppError";
 import { TProducts } from "./products.interface";
 import { Products } from "./products.model";
 
 const addProductDb = async (payLoad: TProducts) => {
   // isExist product
   const isExistProduct = await Products.findOne({ name: payLoad.name });
+
   if (isExistProduct) {
-    const result = await Products.findOneAndUpdate({ name: payLoad.name }, { $inc: { availableQuantity: payLoad.availableQuantity } }, { new: true });
+    const result = await Products.findOneAndUpdate(
+      { name: payLoad.name },
+      { $inc: { availableQuantity: payLoad.availableQuantity } },
+      { new: true, runValidators: true }
+    );
     return result;
   }
   const result = await Products.create(payLoad);

@@ -3,6 +3,7 @@ import { TOrder } from "./order.interface";
 import { Order } from "./order.model";
 import { Products } from "../products/products.model";
 import httpStatus from "http-status";
+import AppError from "../../error/AppError";
 
 const addOrderDb = async (payload: TOrder) => {
   // reduce qunatity from product after confirm chekcout
