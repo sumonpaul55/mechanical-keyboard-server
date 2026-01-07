@@ -20,7 +20,7 @@ const addProductDb = (payLoad) => __awaiter(void 0, void 0, void 0, function* ()
     // isExist product
     const isExistProduct = yield products_model_1.Products.findOne({ name: payLoad.name });
     if (isExistProduct) {
-        const result = yield products_model_1.Products.findOneAndUpdate({ name: payLoad.name }, { $inc: { availableQuantity: payLoad.availableQuantity } }, { new: true });
+        const result = yield products_model_1.Products.findOneAndUpdate({ name: payLoad.name }, { $inc: { availableQuantity: payLoad.availableQuantity } }, { new: true, runValidators: true });
         return result;
     }
     const result = yield products_model_1.Products.create(payLoad);
@@ -30,11 +30,11 @@ const getAllProductFromDb = (query) => __awaiter(void 0, void 0, void 0, functio
     const productQuery = new QueryBuilder_1.default(products_model_1.Products.find({ delete: false }), query)
         .search(searchAblefield_1.searchAbleField)
         .filter()
+        .sort()
         .range()
         .brand()
         .fields()
-        .paginate()
-        .sort();
+        .paginate();
     const result = yield productQuery.modelQuery;
     const totalDocument = yield products_model_1.Products.countDocuments({ delete: false });
     return { result, totalDocument };
