@@ -13,12 +13,28 @@ exports.loveService = void 0;
 const lovePercentige_1 = require("../../utils/lovePercentige");
 const love_model_1 = require("./love.model");
 const addCoupleDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const lovePercentage = (0, lovePercentige_1.calculateLovePercentage)(payload.name, payload.partnerName);
-    const result = yield love_model_1.loveModel.create(Object.assign(Object.assign({}, payload), { percentige: lovePercentage }));
+    const name = payload.name.trim();
+    const partnerName = payload.partnerName.trim();
+    const lovePercentage = (0, lovePercentige_1.calculateLovePercentage)(name, partnerName);
+    const result = yield love_model_1.loveModel.findOneAndUpdate({ name, partnerName }, {
+        $setOnInsert: {
+            name: payload.name,
+            partnerName: payload.partnerName,
+            percentige: lovePercentage,
+        },
+    }, {
+        upsert: true,
+        new: true, // returns old document if exists, new if inserted
+    });
     return result;
 });
 const getallCouplesDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = (yield love_model_1.loveModel.find()).reverse();
+    const result = (yield love_model_1.loveModel.find().sort({
+        // modified ones first
+        updatedAt: -1,
+        // fallback for unmodified data (reverse order)
+        createdAt: -1,
+    }));
     return result;
 });
 exports.loveService = { addCoupleDb, getallCouplesDb };
