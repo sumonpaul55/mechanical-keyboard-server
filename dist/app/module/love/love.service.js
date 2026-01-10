@@ -18,7 +18,7 @@ const addCoupleDb = (payload) => __awaiter(void 0, void 0, void 0, function* () 
     return result;
 });
 const getallCouplesDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield love_model_1.loveModel.find();
+    const result = (yield love_model_1.loveModel.find()).reverse();
     return result;
 });
 exports.loveService = { addCoupleDb, getallCouplesDb };

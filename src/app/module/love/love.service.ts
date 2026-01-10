@@ -18,7 +18,7 @@ const addCoupleDb = async (payload: Couple) => {
 };
 
 const getallCouplesDb = async () => {
-    const result = await loveModel.find();
+    const result = (await loveModel.find()).reverse();
     return result;
 }
 
