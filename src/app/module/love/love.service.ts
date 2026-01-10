@@ -4,7 +4,6 @@ import { loveModel } from "./love.model";
 
 const addCoupleDb = async (payload: Couple) => {
 
-    console.log(payload, "aylod service");
     const lovePercentage = calculateLovePercentage(
         payload.name,
         payload.partnerName

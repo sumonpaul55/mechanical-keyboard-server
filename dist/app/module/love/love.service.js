@@ -13,7 +13,6 @@ exports.loveService = void 0;
 const lovePercentige_1 = require("../../utils/lovePercentige");
 const love_model_1 = require("./love.model");
 const addCoupleDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(payload, "aylod service");
     const lovePercentage = (0, lovePercentige_1.calculateLovePercentage)(payload.name, payload.partnerName);
     const result = yield love_model_1.loveModel.create(Object.assign(Object.assign({}, payload), { percentige: lovePercentage }));
     return result;

@@ -2,12 +2,12 @@ export const calculateLovePercentage = (
   name: string,
   partnerName: string
 ): number => {
-  const partner = partnerName.trim().toLowerCase();
+  // const partner = partnerName.trim().toLowerCase();
 
-  // Special rule 👑
-  if (partner.includes("sumon") || partner.includes("suman")) {
-    return 100;
-  }
+  // // Special rule 👑
+  // if (partner.includes("sumon") || partner.includes("suman")) {
+  //   return 100;
+  // }
 
   // Simple deterministic calculation
   const combinedLength = name.trim().length + partnerName.trim().length;
