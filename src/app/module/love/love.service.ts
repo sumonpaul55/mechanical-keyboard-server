@@ -6,24 +6,29 @@ const addCoupleDb = async (payload: Couple) => {
     const name = payload.name.trim();
     const partnerName = payload.partnerName.trim();
 
-    const lovePercentage = calculateLovePercentage(name, partnerName);
+    // Check if couple already exists
+    const existingCouple = await loveModel.findOne({ name, partnerName });
 
-    const result = await loveModel.findOneAndUpdate(
-        { name, partnerName },
-        {
-            $setOnInsert: {
-                name: payload.name,
-                partnerName: payload.partnerName,
-                percentige: lovePercentage,
-            },
-        },
-        {
-            upsert: true,
-            new: true, // returns old document if exists, new if inserted
-        }
-    );
+    let lovePercentage: number;
+
+    if (existingCouple) {
+        // ✅ Use old percentage
+        lovePercentage = existingCouple.lovePercentage;
+    } else {
+        // ✅ Calculate new percentage
+        lovePercentage = calculateLovePercentage(name, partnerName);
+    }
+
+    // ✅ Always create a new record
+    const result = await loveModel.create({
+        name,
+        partnerName,
+        lovePercentage,
+    });
+
     return result;
 };
+
 const getallCouplesDb = async () => {
     const result = (await loveModel.find().sort({
         // modified ones first

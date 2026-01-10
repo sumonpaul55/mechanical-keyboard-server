@@ -15,16 +15,22 @@ const love_model_1 = require("./love.model");
 const addCoupleDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const name = payload.name.trim();
     const partnerName = payload.partnerName.trim();
-    const lovePercentage = (0, lovePercentige_1.calculateLovePercentage)(name, partnerName);
-    const result = yield love_model_1.loveModel.findOneAndUpdate({ name, partnerName }, {
-        $setOnInsert: {
-            name: payload.name,
-            partnerName: payload.partnerName,
-            percentige: lovePercentage,
-        },
-    }, {
-        upsert: true,
-        new: true, // returns old document if exists, new if inserted
+    // Check if couple already exists
+    const existingCouple = yield love_model_1.loveModel.findOne({ name, partnerName });
+    let lovePercentage;
+    if (existingCouple) {
+        // ✅ Use old percentage
+        lovePercentage = existingCouple.lovePercentage;
+    }
+    else {
+        // ✅ Calculate new percentage
+        lovePercentage = (0, lovePercentige_1.calculateLovePercentage)(name, partnerName);
+    }
+    // ✅ Always create a new record
+    const result = yield love_model_1.loveModel.create({
+        name,
+        partnerName,
+        lovePercentage,
     });
     return result;
 });
