@@ -20,7 +20,7 @@ const addCoupleDb = (payload) => __awaiter(void 0, void 0, void 0, function* () 
     let lovePercentage;
     if (existingCouple) {
         // ✅ Use old percentage
-        lovePercentage = existingCouple.lovePercentage;
+        lovePercentage = existingCouple.percentige;
     }
     else {
         // ✅ Calculate new percentage
@@ -30,7 +30,7 @@ const addCoupleDb = (payload) => __awaiter(void 0, void 0, void 0, function* () 
     const result = yield love_model_1.loveModel.create({
         name,
         partnerName,
-        lovePercentage,
+        percentige: lovePercentage,
     });
     return result;
 });

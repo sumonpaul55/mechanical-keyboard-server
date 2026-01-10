@@ -10,10 +10,9 @@ const addCoupleDb = async (payload: Couple) => {
     const existingCouple = await loveModel.findOne({ name, partnerName });
 
     let lovePercentage: number;
-
     if (existingCouple) {
         // ✅ Use old percentage
-        lovePercentage = existingCouple.lovePercentage;
+        lovePercentage = existingCouple.percentige;
     } else {
         // ✅ Calculate new percentage
         lovePercentage = calculateLovePercentage(name, partnerName);
@@ -23,7 +22,7 @@ const addCoupleDb = async (payload: Couple) => {
     const result = await loveModel.create({
         name,
         partnerName,
-        lovePercentage,
+        percentige: lovePercentage,
     });
 
     return result;
